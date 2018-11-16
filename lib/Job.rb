@@ -3,7 +3,7 @@ class Job
 
   @@all = []
 
-  def initialize(id, title, location, perks, post_date, apply_url)
+  def initialize(id, title, location = nil, perks, post_date, apply_url)
     @id = id
     @title = title
     @city = city
