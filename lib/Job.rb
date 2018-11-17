@@ -1,5 +1,4 @@
-require_relative "JobAPI.rb"
-require "JSON"
+require_relative "JobAPI"
 require "pry"
 
 class Job
