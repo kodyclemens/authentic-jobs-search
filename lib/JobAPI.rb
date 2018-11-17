@@ -16,7 +16,7 @@ class JobAPI
   def self.create_jobs(parsed_jobs_hash_json)
     id = ""
     title = ""
-    location = "Not listed."
+    location = "N/A"
     perks = ""
     post_date = ""
     apply_url = ""
@@ -25,8 +25,10 @@ class JobAPI
       id = job_attr["id"]
       title = job_attr["title"]
       perks = job_attr["perks"]
-      # Location is not present on all job listings, need to add conditional logic to see if it exists in each job or not
-      # location = job_attr["company"]["location"]["name"]
+      # Check to ensure the hash includes a location key. Not all jobs within our hash contain a location.
+      if job_attr["company"]["location"]
+        location = job_attr["company"]["location"]["name"]
+      end
       post_date = job_attr["post_date"]
       apply_url = job_attr["apply_url"]
       Job.new(id, title, location, perks, post_date, apply_url)
@@ -34,8 +36,9 @@ class JobAPI
   end
 end
 
-JobAPI.create_jobs(JobAPI.get_all_jobs)
-
 # Testing functionality. Binding cannot be the last line.
+JobAPI.create_jobs(JobAPI.get_all_jobs)
+binding.pry
+Job.search_by_location("New York")
 binding.pry
 puts "Please ignore"
