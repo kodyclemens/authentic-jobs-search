@@ -78,8 +78,3 @@ class Job
     return nil
   end
 end
-
-# Testing Area. Binding cannot be the last line.
-Job.create_jobs
-binding.pry
-puts "Please ignore"
