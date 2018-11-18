@@ -3,7 +3,7 @@ require 'rainbow'
 require 'pry'
 
 class CLI
-  attr_accessor :input
+  @top_level_menu_options = [1, 2]
 
   def self.run
     puts Rainbow('Authentic Jobs Search').green.bright
@@ -25,10 +25,11 @@ class CLI
     run_selection(@input) if validate_menu_input(@input) == true
   end
 
-  def self.validate_menu_input(_input)
-    if @input == 1 || @input == 2
+  def self.validate_menu_input(input)
+    if @top_level_menu_options.include?(input)
       true
     else
+      clear_terminal
       puts Rainbow('Invalid selection! Please try again.').red.bright
       menu
     end
@@ -37,10 +38,12 @@ class CLI
   def self.run_selection(input)
     case input
     when 1
-      print "Please enter a location: "
+      clear_terminal
+      print 'Please enter a location: '
       search_term = gets.chomp.to_s
-      Job.search_by_location(search_term)
+      Job.search('location', search_term)
     when 2
+      puts 'Goodbye.'
       exit
     end
   end
