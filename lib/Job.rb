@@ -1,5 +1,6 @@
-require_relative "JobAPI"
-require "pry"
+require_relative 'JobAPI'
+require 'pry'
+require 'rainbow'
 
 class Job
   attr_reader :id, :title, :location, :perks, :post_date, :apply_url
@@ -22,32 +23,32 @@ class Job
 
   def self.create_jobs
     id = 1
-    title = ""
-    location = "N/A"
-    perks = ""
-    post_date = ""
-    apply_url = ""
+    title = ''
+    location = 'N/A'
+    perks = ''
+    post_date = ''
+    apply_url = ''
 
     parsed_jobs_hash_json = JobAPI.get_all_jobs
 
-    parsed_jobs_hash_json["listings"]["listing"].each do |job_attr|
-      title = job_attr["title"]
-      perks = job_attr["perks"]
+    parsed_jobs_hash_json['listings']['listing'].each do |job_attr|
+      title = job_attr['title']
+      perks = job_attr['perks']
       # Check to ensure the hash includes a location key. Not all jobs within our hash contain a location.
-      if job_attr["company"]["location"]
-        location = job_attr["company"]["location"]["name"]
+      if job_attr['company']['location']
+        location = job_attr['company']['location']['name']
       end
-      post_date = job_attr["post_date"]
-      apply_url = job_attr["apply_url"]
-      self.new(id, title, location, perks, post_date, apply_url)
+      post_date = job_attr['post_date']
+      apply_url = job_attr['apply_url']
+      new(id, title, location, perks, post_date, apply_url)
       id += 1
     end
   end
 
   def self.search_by_location(location)
     selected_jobs = []
-    blank_line = ""
-    seperator = "-----"
+    blank_line = ''
+    seperator = '-----'
 
     # Find all jobs that included the search term in their location attribute.
     @@all.each do |job_obj|
@@ -57,7 +58,7 @@ class Job
     end
 
     if selected_jobs.count > 1
-      puts "A total of #{selected_jobs.count} jobs were found for search term \"#{location}\":"
+      puts Rainbow("A total of #{selected_jobs.count} jobs were found for search term \"#{location}\":").green.bright
       puts blank_line
     elsif selected_jobs.count == 1
       puts "One job was found for search term \"#{location}\":"
@@ -75,6 +76,6 @@ class Job
       puts seperator
       puts blank_line
     end
-    return nil
+    nil
   end
 end
