@@ -48,20 +48,26 @@ class Job
   def self.search_by_location(location)
     selected_jobs = []
 
+    CLI.clear_terminal
+
     # Find all jobs that included the search term in their location attribute.
     @@all.each do |job_obj|
       if job_obj.location.include?(location)
         selected_jobs << ["#{job_obj.id}. #{job_obj.title} located in #{job_obj.location}.", "Apply at: #{job_obj.apply_url}"]
       end
     end
-    output_jobs(selected_jobs, location)
+
+    if selected_jobs.count > 0
+      output_jobs(selected_jobs, location)
+    else
+      puts Rainbow("No jobs were found for search term \"#{location}\".").red.bright
+      CLI.menu
+    end
   end
 
-  def self.output_jobs(jobs, location)
+  def self.output_jobs(jobs, search_term)
     blank_line = ''
     seperator = '-----'
-
-    puts Rainbow("#{jobs.count} job(s) found for search term \"#{location}\":").green.bright
 
     jobs.each do |job|
       puts job[0]
@@ -70,6 +76,8 @@ class Job
       puts blank_line
       puts seperator
       puts blank_line
+      sleep(0.5)
     end
+    puts Rainbow("#{jobs.count} job(s) found for search term \"#{search_term}\":").green.bright
   end
 end
