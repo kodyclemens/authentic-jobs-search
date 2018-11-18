@@ -6,8 +6,9 @@ class Job
   attr_reader :id, :title, :location, :perks, :post_date, :apply_url
 
   @@all = []
+  @@search_returned_job_ids = []
 
-  def initialize(id, title, location = nil, perks, post_date, apply_url)
+  def initialize(id, title, location = nil, perks = 'N/A', post_date, apply_url)
     @id = id
     @title = title
     @location = location
@@ -74,14 +75,38 @@ class Job
 
   def self.find_jobs(type, search_term)
     selected_jobs = []
+    @@search_returned_job_ids.clear
     case type
     when 'location'
       @@all.each do |job_obj|
         if job_obj.location.include?(search_term)
           selected_jobs << ["#{job_obj.id}. #{job_obj.title} located in #{job_obj.location}.", "Apply at: #{job_obj.apply_url}"]
+          @@search_returned_job_ids << job_obj.id
         end
       end
     end
     selected_jobs
+  end
+
+  def self.job_details(passed_job_id)
+    if @@search_returned_job_ids.include?(passed_job_id.to_i)
+      chosen_job = @@all.detect { |job| job.id == passed_job_id.to_i}
+      puts Rainbow("Job ID #{passed_job_id} chosen.").green.bright
+      detailed_job_output(chosen_job)
+      puts ""
+      CLI.sub_menu
+    else
+      puts Rainbow('Invalid selection! Please try again.').red.bright
+      CLI.sub_menu
+    end
+  end
+
+  def self.detailed_job_output(job)
+    puts "ID: #{job.id}"
+    puts "Position: #{job.title}"
+    puts "Location:  #{job.location}"
+    puts "Perks: #{job.perks}"
+    puts "Posted by employeer at: #{job.post_date}"
+    puts "Apply at: #{job.apply_url}"
   end
 end

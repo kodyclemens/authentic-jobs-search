@@ -4,7 +4,7 @@ require 'pry'
 
 class CLI
   @top_level_menu_options = [1, 2]
-
+ 
   def self.run
     puts Rainbow('Authentic Jobs Search').green.bright
     puts Rainbow('Search and view details about jobs posted to authenticjobs.com')
@@ -42,6 +42,7 @@ class CLI
       print 'Please enter a location: '
       search_term = gets.chomp.to_s
       Job.search('location', search_term)
+      sub_menu
     when 2
       puts 'Goodbye.'
       exit
@@ -50,6 +51,17 @@ class CLI
 
   def self.clear_terminal
     system 'clear' # TODO: Ensure terminal clears cross-platform (check if UNIX or Win platform)
+  end
+
+  def self.sub_menu
+    print "Enter job ID or 'return' to go back to the main menu: "
+    input = gets.chomp
+    if input == 'return'
+      clear_terminal
+      menu
+    else
+      Job.job_details(input)
+    end
   end
 end
 
