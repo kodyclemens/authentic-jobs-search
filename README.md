@@ -8,6 +8,10 @@ You will need your own API key to use the software.
 
 An API key can be obtained by visiting [this URL](https://authenticjobs.com/api). Once you have your key, copy and paste it into `api.txt` and save the file.
 
+## Running the CLI
+
+In your terminal, navigate to the project's `lib` directory. Run the command `ruby cli.rb` in your terminal.
+
 ## Built With
 
 * [Ruby](https://www.ruby-lang.org/en/) - The programming language used
