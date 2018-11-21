@@ -50,7 +50,8 @@ class CLI
   end
 
   def self.clear_terminal
-    system 'clear' # TODO: Ensure terminal clears cross-platform (check if UNIX or Win platform)
+    # Try to clear terminal using both methods - Unix (clear) and Windows (cls)
+    system "clear" or system "cls"
   end
 
   def self.sub_menu
