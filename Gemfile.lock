@@ -3,6 +3,7 @@ GEM
   specs:
     json (2.1.0)
     rainbow (3.0.0)
+    rake (12.3.1)
 
 PLATFORMS
   ruby
@@ -10,6 +11,7 @@ PLATFORMS
 DEPENDENCIES
   json
   rainbow
+  rake
 
 BUNDLED WITH
    1.17.1
