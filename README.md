@@ -10,7 +10,7 @@ An API key can be obtained by visiting [this URL](https://authenticjobs.com/api)
 
 ## Running the CLI
 
-In your terminal, navigate to the project's `base` directory. Run the command `ruby bin/run` in your terminal.
+In your terminal, navigate to the project's base directory. Run the command `ruby bin/run` in your terminal.
 
 ## Built With
 
