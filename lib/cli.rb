@@ -2,10 +2,8 @@ class CLI
   @top_level_menu_options = [1, 2]
  
   def self.run
-    puts Rainbow('Authentic Jobs Search').green.bright
-    puts Rainbow('Search and view details about jobs posted to authenticjobs.com')
-    puts '-----'
-    puts Rainbow('Please standby while job postings are collected...').yellow.bright
+    display_logo
+    puts Rainbow('Please standby while job postings are collected...').cyan
     # Comment out line 14 to test CLI functionality without using the API
     Job.create_jobs
     clear_terminal
@@ -60,6 +58,30 @@ class CLI
       Job.job_details(input)
     end
   end
-end
 
-CLI.run
+  def self.display_logo
+    # ASCII from https://www.asciiart.eu/computers/computers
+    flatiron = Rainbow("//").cyan
+    puts Rainbow("
+          ,---------------------------,
+          |  /---------------------\\  |
+          | |   #{flatiron}                  | |
+          | |     Authentic         | |
+          | |      Jobs             | |
+          | |       Search          | |
+          | |                       | |
+          |  \\_____________________/  |
+          |___________________________|
+        ,---\\_____     []     _______/------,
+      /         /______________\\           /|
+    /___________________________________ /  | ___
+    |                                   |   |    )
+    |  _ _ _                 [-------]  |   |   (
+    |  o o o                 [-------]  |  /    _)_
+    |__________________________________ |/     /  /
+    /-------------------------------------/|  ( )/
+  /-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
+/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/ /
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n").white
+  end
+end
