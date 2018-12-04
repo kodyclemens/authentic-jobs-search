@@ -1,7 +1,3 @@
-require_relative 'Job'
-require 'rainbow'
-require 'pry'
-
 class CLI
   @top_level_menu_options = [1, 2]
  

@@ -10,7 +10,7 @@ An API key can be obtained by visiting [this URL](https://authenticjobs.com/api)
 
 ## Running the CLI
 
-In your terminal, navigate to the project's `lib` directory. Run the command `ruby cli.rb` in your terminal.
+In your terminal, navigate to the project's `base` directory. Run the command `ruby bin/run` in your terminal.
 
 ## Built With
 
@@ -19,7 +19,7 @@ In your terminal, navigate to the project's `lib` directory. Run the command `ru
 
 ## Versioning
 
-TODO once the project is packaged as a gem.
+v1.0
 
 ## Authors
 

@@ -1,7 +1,3 @@
-require_relative 'JobAPI'
-require 'pry'
-require 'rainbow'
-
 class Job
   attr_reader :id, :title, :location, :perks, :post_date, :apply_url
 

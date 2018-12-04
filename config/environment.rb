@@ -1,4 +1,6 @@
-require_relative "../lib/cli.rb"
-require_relative '../lib/job.rb'
-require_relative '../lib/JobAPI.rb'
+require 'open-uri'
+require 'json'
 require 'rainbow'
+require_relative '../lib/job.rb'
+require_relative '../lib/job_api.rb'
+require_relative "../lib/cli.rb"
