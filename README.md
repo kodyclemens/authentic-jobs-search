@@ -23,7 +23,7 @@ v1.0
 
 ## Contributing
 
-See CONTRIBUTING.md
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Authors
 
