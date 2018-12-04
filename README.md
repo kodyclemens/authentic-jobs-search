@@ -21,6 +21,10 @@ In your terminal, navigate to the project's base directory. Run the command `rub
 
 v1.0
 
+## Contributing
+
+See CONTRIBUTING.md
+
 ## Authors
 
 * **Kody Clemens** - [Blog](https://kodyclemens.com/)
