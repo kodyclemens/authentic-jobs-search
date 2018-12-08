@@ -4,7 +4,7 @@ class CLI
   def self.run
     display_logo
     puts Rainbow('Please standby while job postings are collected...').cyan
-    # Comment out line 14 to test CLI functionality without using the API
+    # Comment out line 8 to test CLI functionality without using the API
     Job.create_jobs
     clear_terminal
     puts Rainbow('Jobs successfully collected.').green.bright
@@ -18,17 +18,7 @@ class CLI
     @input = gets.chomp.to_i
     run_selection(@input) if validate_menu_input(@input) == true
   end
-
-  def self.validate_menu_input(input)
-    if @top_level_menu_options.include?(input)
-      true
-    else
-      clear_terminal
-      puts Rainbow('Invalid selection! Please try again.').red.bright
-      menu
-    end
-  end
-
+  
   def self.run_selection(input)
     case input
     when 1
@@ -43,11 +33,17 @@ class CLI
     end
   end
 
-  def self.clear_terminal
-    # Try to clear terminal using both methods - Unix (clear) and Windows (cls)
-    system "clear" or system "cls"
+  def self.validate_menu_input(input)
+    if @top_level_menu_options.include?(input)
+      true
+    else
+      clear_terminal
+      puts Rainbow('Invalid selection! Please try again.').red.bright
+      menu
+    end
   end
 
+  
   def self.sub_menu
     print "Enter job ID or 'return' to go back to the main menu: "
     input = gets.chomp
@@ -57,6 +53,11 @@ class CLI
     else
       Job.job_details(input)
     end
+  end
+  
+  def self.clear_terminal
+    # Try to clear terminal using both methods - Unix (clear) and Windows (cls)
+    system "clear" or system "cls"
   end
 
   def self.display_logo
