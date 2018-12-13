@@ -18,7 +18,7 @@ class CLI
     @input = gets.chomp.to_i
     run_selection(@input) if validate_menu_input(@input) == true
   end
-  
+
   def self.run_selection(input)
     case input
     when 1
@@ -43,7 +43,6 @@ class CLI
     end
   end
 
-  
   def self.sub_menu
     print "Enter job ID or 'return' to go back to the main menu: "
     input = gets.chomp
@@ -54,7 +53,7 @@ class CLI
       Job.job_details(input)
     end
   end
-  
+
   def self.clear_terminal
     # Try to clear terminal using both methods - Unix (clear) and Windows (cls)
     system "clear" or system "cls"

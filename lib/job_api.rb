@@ -1,4 +1,5 @@
 class JobAPI
+  # Use file expand path
   @@api = File.open('./api.txt', 'r').read
   @@base_url = "https://authenticjobs.com/api/?api_key=#{@@api}&method=aj.jobs.search&format=json&perpage=100"
 
