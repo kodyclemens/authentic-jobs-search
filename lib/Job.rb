@@ -1,5 +1,5 @@
 class Job
-  attr_accessor :id, :title, :location, :perks, :post_date, :apply_url
+  attr_accessor :title, :location, :perks, :post_date, :apply_url
 
   @@all = []
   @@jobs_found_by_search = []
@@ -17,7 +17,6 @@ class Job
     # Method called from CLI
     # Iterate through hash returned from JobAPI.get_all_jobs
     # Each job result in the hash will be used to create a new Job object
-    id = 1
     
     parsed_jobs_hash_json = JobAPI.get_all_jobs
     
@@ -27,7 +26,6 @@ class Job
       listing["perks"] = job_attr['perks']
       listing["post_date"] = job_attr['post_date']
       listing["apply_url"] = job_attr['apply_url']
-      listing["id"] = id
 
       # Check to ensure the hash includes a location key.
       # Not all jobs within our hash contain a location.
@@ -38,7 +36,6 @@ class Job
       end
 
       new(listing)
-      id += 1
     end
   end
 
