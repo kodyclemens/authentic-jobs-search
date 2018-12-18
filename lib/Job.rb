@@ -25,13 +25,13 @@ class Job
     # Each job result in the hash will be used to create a new Job object
     id = 1
     title = ''
-    location = 'N/A'
     perks = ''
     post_date = ''
     apply_url = ''
-
+    location = 'N/A'
+    
     parsed_jobs_hash_json = JobAPI.get_all_jobs
-
+    
     parsed_jobs_hash_json['listings']['listing'].each do |job_attr|
       title = job_attr['title']
       perks = job_attr['perks']
@@ -87,6 +87,7 @@ class Job
     when 'location'
       @@all.each do |job_obj|
         if job_obj.location.include?(search_term)
+          # TODO: Refactor to return select job objects, handle all printing in CLI
           selected_jobs << ["#{job_obj.id}. #{job_obj.title} located in #{job_obj.location}.", "Apply at: #{job_obj.apply_url}"]
           @@search_returned_job_ids << job_obj.id
         end
