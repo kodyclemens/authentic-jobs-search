@@ -72,7 +72,7 @@ class CLI
   def self.description(job_obj)
     puts
     puts Rainbow("#{job_obj.title}").underline
-    puts "Job is located in: #{job_obj.location}"
+    puts "Job location: #{job_obj.location}"
     puts "Posted by employer: #{job_obj.post_date}"
     puts "Apply online at: #{job_obj.apply_url}", ""
   end

@@ -1,16 +1,11 @@
 class Job
-  attr_reader :id, :title, :location, :perks, :post_date, :apply_url
+  attr_accessor :id, :title, :location, :perks, :post_date, :apply_url
 
   @@all = []
   @@jobs_found_by_search = []
 
-  def initialize(id, title, location = nil, perks = 'N/A', post_date, apply_url)
-    @id = id
-    @title = title
-    @location = location
-    @perks = perks
-    @post_date = post_date
-    @apply_url = apply_url
+  def initialize(attributes)
+    attributes.each { |key, value| self.send(("#{key}="), value)}
     @@all << self
   end
 
@@ -23,26 +18,26 @@ class Job
     # Iterate through hash returned from JobAPI.get_all_jobs
     # Each job result in the hash will be used to create a new Job object
     id = 1
-    title = ''
-    perks = ''
-    post_date = ''
-    apply_url = ''
-    location = 'N/A'
     
     parsed_jobs_hash_json = JobAPI.get_all_jobs
     
     parsed_jobs_hash_json['listings']['listing'].each do |job_attr|
-      title = job_attr['title']
-      perks = job_attr['perks']
+      listing = {}
+      listing["title"] = job_attr['title']
+      listing["perks"] = job_attr['perks']
+      listing["post_date"] = job_attr['post_date']
+      listing["apply_url"] = job_attr['apply_url']
+      listing["id"] = id
+
       # Check to ensure the hash includes a location key.
       # Not all jobs within our hash contain a location.
       if job_attr['company']['location']
-        location = job_attr['company']['location']['name']
+        listing["location"] = job_attr['company']['location']['name']
+      else
+        listing["location"] = 'Not provided'
       end
 
-      post_date = job_attr['post_date']
-      apply_url = job_attr['apply_url']
-      new(id, title, location, perks, post_date, apply_url)
+      new(listing)
       id += 1
     end
   end
