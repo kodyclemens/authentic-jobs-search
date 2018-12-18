@@ -1,14 +1,14 @@
 class CLI
-  @menu_options = [1, 2]
+  @menu_options = [1, 2, 1337]
   @jobs_found_by_search = nil
  
   def self.run
     display_logo
     puts Rainbow('Please standby while job postings are collected...').cyan
-    # Comment out line 8 to test CLI functionality without using the API
+    # Comment out line below to test CLI functionality without using the API
     Job.create_jobs
     clear_terminal
-    puts Rainbow('Jobs successfully collected.').green.bright
+    puts Rainbow('Jobs successfully collected.').cyan
     menu
   end
 
@@ -36,18 +36,21 @@ class CLI
       Job.jobs_found? ? short_description(Job.jobs_found_by_search) : no_jobs_found
       sub_menu
     when 2
-      puts 'Goodbye.'
-      exit
+      quit
+    when 1337
+      binding.pry
     end
   end
 
   def self.sub_menu
-    print "Enter job ID for more details or 'return' to conduct a new search or exit: "
+    print Rainbow("Enter job ID, 'return' to search again or 'exit': ").cyan
     input = gets.chomp
     if input == 'return'
       Job.clear_search_returned_jobs
       clear_terminal
       menu
+    elsif input == 'exit'
+      quit
     else
       if Job.return_job_by_index(input) != nil && input.to_i > 0
         description(Job.return_job_by_index(input))
@@ -59,18 +62,19 @@ class CLI
   end
 
   def self.short_description(jobs)
+    puts Rainbow("#{jobs.count} jobs found!").cyan, ""
     jobs.each.with_index(1) do |job, index|
-      puts "#{index}. #{job.title} located in #{job.location}."
-      puts "------"
+      puts "#{index}. #{job.title} located in #{job.location}.", ""
       sleep(0.5)
     end
   end
 
   def self.description(job_obj)
-    puts Rainbow("#{job_obj.title}").green.bright
+    puts
+    puts Rainbow("#{job_obj.title}").underline
     puts "Job is located in: #{job_obj.location}"
     puts "Posted by employer: #{job_obj.post_date}"
-    puts "Apply online at #{job_obj.apply_url}"
+    puts "Apply online at: #{job_obj.apply_url}", ""
   end
 
   def self.no_jobs_found
@@ -86,6 +90,11 @@ class CLI
   def self.clear_terminal
     # Try to clear terminal using both methods - Unix (clear) and Windows (cls)
     system "clear" or system "cls"
+  end
+
+  def self.quit
+    puts 'Goodbye'
+    exit
   end
 
   def self.display_logo
