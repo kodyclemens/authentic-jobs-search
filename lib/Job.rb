@@ -1,3 +1,4 @@
+# TODO: Refactor to return select job objects, handle all printing in CLI
 require 'pry'
 class Job
   attr_reader :id, :title, :location, :perks, :post_date, :apply_url
@@ -87,7 +88,6 @@ class Job
     when 'location'
       @@all.each do |job_obj|
         if job_obj.location.include?(search_term)
-          # TODO: Refactor to return select job objects, handle all printing in CLI
           selected_jobs << ["#{job_obj.id}. #{job_obj.title} located in #{job_obj.location}.", "Apply at: #{job_obj.apply_url}"]
           @@search_returned_job_ids << job_obj.id
         end
