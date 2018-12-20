@@ -32,8 +32,8 @@ class CLI
       clear_terminal
       print 'Please enter a location: '
       search_term = gets.chomp.to_s
-      Job.search(search_term)
-      Job.jobs_found? ? short_description(Job.jobs_found_by_search) : no_jobs_found
+      jobs_found = Job.search(search_term)
+      Job.jobs_found? ? short_description(jobs_found) : no_jobs_found
       sub_menu
     when 2
       quit
